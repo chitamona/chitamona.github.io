@@ -9,7 +9,7 @@ const player = {
     x: 150,
     y: 350,
     width: 100,
-    height: 178, // 1.78 cm de alto (representación simplificada)
+    height: 178, // 1.78 m de alto (representación simplificada)
     isBlocking: false,
     health: 100,
     color: 'pink',
