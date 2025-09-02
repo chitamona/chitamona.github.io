@@ -82,6 +82,7 @@ function draw() {
 function punch() {
     punchButton.disabled = true;
     player.isPunching = true;
+    draw();
 
     setTimeout(() => {
         player.isPunching = false;
