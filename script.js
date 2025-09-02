@@ -98,6 +98,25 @@ const opponent = {
 // Función para dibujar todo en el canvas
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Función para dibujar todo en el canvas
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // --- CÓDIGO AÑADIDO: Dibuja la imagen de fondo ---
+    if (isBgLoaded) {
+        ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+    } else {
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    // --- FIN DEL CÓDIGO AÑADIDO ---
+
+    player.draw();
+    opponent.draw();
+
+    // ... (el resto del código para mostrar la vida) ...
+}
+    
     player.draw();
     opponent.draw();
 
