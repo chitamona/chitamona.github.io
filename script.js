@@ -143,6 +143,24 @@ function block() {
 punchButton.addEventListener('click', punch);
 blockButton.addEventListener('click', block);
 greetButton.addEventListener('click', player.greet);
+// Escuchar los eventos del teclado
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') {
+        keys.left = true;
+    }
+    if (event.key === 'ArrowRight') {
+        keys.right = true;
+    }
+});
+
+document.addEventListener('keyup', (event) => {
+    if (event.key === 'ArrowLeft') {
+        keys.left = false;
+    }
+    if (event.key === 'ArrowRight') {
+        keys.right = false;
+    }
+});
 
 // Iniciar el juego
-draw();
+draw(); 
