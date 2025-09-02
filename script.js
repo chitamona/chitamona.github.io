@@ -42,6 +42,15 @@ const player = {
         ctx.beginPath();
         ctx.arc(this.x + 60, this.y + 40, 5, 0, 2 * Math.PI);
         ctx.fill();
+        
+        // --- CÓDIGO PARA AÑADIR LA ANIMACIÓN DE BLOQUEO ---
+if (this.isBlocking) {
+    // Dibuja un escudo o una postura de bloqueo
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(this.x + 10, this.y + 70, 80, 80);
+}
+// --- FIN DEL CÓDIGO ---
+
 
         // Brazos para golpear
         if (this.isPunching) { //
