@@ -116,6 +116,7 @@ function opponentPunch() {
         }
         draw();
     }
+    punchButton.disabled = false;
 }
 
 // Función para bloquear
