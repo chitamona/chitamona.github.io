@@ -78,6 +78,15 @@ function draw() {
 
 // Función para golpear
 function punch() {
+    function punch() {
+    punchButton.disabled = true; // Deshabilita el botón de golpe
+    player.isPunching = true;    // Activa la animación del puño
+
+    setTimeout(() => {
+        player.isPunching = false; // Desactiva la animación después de 200 ms
+        draw(); // Redibuja el canvas para ocultar el puño
+    }, 200);
+        
     if (opponent.health > 0) {
         if (!opponent.isBlocking) {
             opponent.health -= 10;
