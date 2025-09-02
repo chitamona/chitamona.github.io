@@ -162,5 +162,26 @@ document.addEventListener('keyup', (event) => {
     }
 });
 
+// Función de actualización
+function update() {
+    // Mover al jugador si las teclas de flecha están presionadas
+    if (keys.left && player.x > 0) {
+        player.x -= playerSpeed;
+    }
+    if (keys.right && player.x < canvas.width - player.width) {
+        player.x += playerSpeed;
+    }
+}
+
+// Bucle principal del juego
+function gameLoop() {
+    update();
+    draw();
+    requestAnimationFrame(gameLoop);
+}
+
+// Iniciar el juego
+gameLoop();
+
 // Iniciar el juego
 draw(); 
