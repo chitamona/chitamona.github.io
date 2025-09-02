@@ -34,7 +34,7 @@ const player = {
         ctx.fill();
 
         // Brazos para golpear
-        if (this.isPunching) {
+        if (this.isPunching) { //
             ctx.fillStyle = 'red';
             ctx.fillRect(this.x + 80, this.y + 50, 50, 20); // Puño
         }
