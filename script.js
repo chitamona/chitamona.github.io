@@ -79,7 +79,6 @@ function draw() {
 // Función para golpear
 function punch() {
     function punch() {
-    function punch() {
     punchButton.disabled = true; // Deshabilita el botón de golpe
     player.isPunching = true;    // Activa la animación del puño
 
