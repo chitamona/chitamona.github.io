@@ -6,6 +6,17 @@ const greetButton = document.getElementById('greetButton');
 
 // Velocidad del jugador
 const playerSpeed = 5;
+// --- AÑADIDO: Carga de la imagen de fondo ---
+const backgroundImage = new Image(); // 1. Crea un nuevo objeto Image
+backgroundImage.src = 'fondo_juego.png'; // 2. Asigna la ruta a tu archivo de imagen
+let isBgLoaded = false; // 3. Bandera para saber si la imagen ya cargó
+
+// 4. Esta función se ejecuta cuando la imagen ha terminado de cargar
+backgroundImage.onload = () => {
+    isBgLoaded = true;
+};
+// --- FIN DEL CÓDIGO AÑADIDO ---
+
 
 // Objeto para rastrear las teclas presionadas
 const keys = {
