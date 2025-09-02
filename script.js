@@ -1,12 +1,4 @@
-alert("¡El código se ejecutó!"); // Coloca esto al principio de tu archivo
-
-// ... el resto de tu código
-function hacerAlgo() {
-  // ... tu código
-  alert("¡La función hacerAlgo() se activó!"); // Coloca esto dentro de una función
-}
-
-    const canvas = document.getElementById('gameCanvas');
+const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const punchButton = document.getElementById('punchButton');
 const blockButton = document.getElementById('blockButton');
