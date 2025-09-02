@@ -9,11 +9,12 @@ const player = {
     x: 150,
     y: 350,
     width: 100,
-    height: 178, // 1.78 m de alto (representación simplificada)
+    height: 178, // 1.78 cm de alto (representación simplificada)
     isBlocking: false,
     health: 100,
     color: 'pink',
-    //isPunching: false,: Mujer de unos 28 años, con cabello rosado marrón amarillento
+    isPunching: false,
+    // Carácter personalizado: Mujer de unos 28 años, con cabello rosado marrón amarillento
     draw: function() {
         // Cuerpo y cabeza
         ctx.fillStyle = 'peru'; // Tono de piel promedio
@@ -33,9 +34,10 @@ const player = {
         ctx.fill();
 
         // Brazos para golpear
-        if (this.isPunching)
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.x + 80, this.y + 50, 50, 20); // Puño
+        if (this.isPunching) {
+            ctx.fillStyle = 'red';
+            ctx.fillRect(this.x + 80, this.y + 50, 50, 20); // Puño
+        }
     },
     // Gestos de saludo
     greet: function() {
