@@ -4,6 +4,16 @@ const punchButton = document.getElementById('punchButton');
 const blockButton = document.getElementById('blockButton');
 const greetButton = document.getElementById('greetButton');
 
+// Velocidad del jugador
+const playerSpeed = 5;
+
+// Objeto para rastrear las teclas presionadas
+const keys = {
+    left: false,
+    right: false
+};
+
+
 // Definición del personaje del jugador
 const player = {
     x: 150,
