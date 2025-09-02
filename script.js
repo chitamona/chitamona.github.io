@@ -13,7 +13,7 @@ const player = {
     isBlocking: false,
     health: 100,
     color: 'pink',
-    // Carácter personalizado: Mujer de unos 28 años, con cabello rosado marrón amarillento
+    //isPunching: false,: Mujer de unos 28 años, con cabello rosado marrón amarillento
     draw: function() {
         // Cuerpo y cabeza
         ctx.fillStyle = 'peru'; // Tono de piel promedio
@@ -33,6 +33,7 @@ const player = {
         ctx.fill();
 
         // Brazos para golpear
+        if (this.isPunching)
         ctx.fillStyle = 'red';
         ctx.fillRect(this.x + 80, this.y + 50, 50, 20); // Puño
     },
