@@ -7,7 +7,22 @@ const greetButton = document.getElementById('greetButton');
 // Velocidad del jugador
 const playerSpeed = 5;
 // --- CÓDIGO AÑADIDO: Carga de la imagen de fondo ---
-const backgroundImage = new Image();
+const backgroundImage = new Image();// --- NUEVO CÓDIGO: Carga de sprites de jugadores ---
+const playerSprite = new Image();
+playerSprite.src = 'player_sprite.png'; // ¡Asegúrate de que esta ruta sea correcta!
+let isPlayerSpriteLoaded = false;
+playerSprite.onload = () => {
+    isPlayerSpriteLoaded = true;
+};
+
+const opponentSprite = new Image();
+opponentSprite.src = 'opponent_sprite.png'; // ¡Asegúrate de que esta ruta sea correcta!
+let isOpponentSpriteLoaded = false;
+opponentSprite.onload = () => {
+    isOpponentSpriteLoaded = true;
+};
+// --- FIN DEL CÓDIGO NUEVO ---
+
 backgroundImage.src = 'fondo_juego.png';
 let isBgLoaded = false;
 let bgX = 0; // NUEVO: Posición horizontal del fondo animado
