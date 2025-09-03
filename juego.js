@@ -192,6 +192,32 @@ document.addEventListener('keyup', (event) => {
 
 // Función de actualización
 function update() {
+    // Dentro de la función update()
+
+    // Lógica de animación para el jugador
+    if (keys.left || keys.right) {
+        playerAnimationState = 'walking';
+    } else {
+        playerAnimationState = 'idle';
+    }
+    
+    // Actualiza el temporizador de la animación del jugador
+    playerAnimationTimer++;
+    if (playerAnimationTimer >= animationSpeed) {
+        playerAnimationFrame = (playerAnimationFrame + 1) % 2; // Alterna entre 0 y 1
+        playerAnimationTimer = 0;
+    }
+
+    // Lógica de animación para el oponente
+    opponentAnimationState = 'idle'; // Por ahora, el oponente solo está quieto
+    opponentAnimationTimer++;
+    if (opponentAnimationTimer >= animationSpeed) {
+        opponentAnimationFrame = (opponentAnimationFrame + 1) % 2;
+        opponentAnimationTimer = 0;
+    }
+
+    // ... (el resto del código de la función update, como el movimiento del fondo) ...
+
     if (keys.left && player.x > ringLeft) {
         player.x -= playerSpeed;
     }
