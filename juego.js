@@ -222,13 +222,91 @@ const opponent = {
         ctx.fillStyle = 'white';
         ctx.fillRect(this.x - 30, this.y + 50, 50, 20);
     }
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const punchButton = document.getElementById('punchButton');
+const blockButton = document.getElementById('blockButton');
+const greetButton = document.getElementById('greetButton');
+
+// Velocidad del jugador
+const playerSpeed = 5;
+
+// Carga de las imágenes del juego
+const backgroundImage = new Image();
+backgroundImage.src = 'fondo_juego.png';
+let isBgLoaded = false;
+let bgX = 0;
+
+backgroundImage.onload = () => {
+    isBgLoaded = true;
+};
+
+// Imágenes de los jugadores
+const jugadoraSprite = new Image();
+jugadoraSprite.src = 'jugador.png';
+
+const oponenteSprite = new Image();
+oponenteSprite.src = 'oponente.png';
+
+
+// Límites del ring
+const ringLeft = 100;
+const ringRight = 700;
+
+
+// Objeto para rastrear las teclas presionadas
+const keys = {
+    left: false,
+    right: false
+};
+
+
+// Definición del personaje del jugador
+const player = {
+    x: 150,
+    y: 350,
+    width: 100,
+    height: 178,
+    isBlocking: false,
+    health: 100,
+    color: 'pink',
+    isPunching: false,
+    draw: function() {
+        ctx.drawImage(jugadoraSprite, this.x, this.y, this.width, this.height);
+        
+        if (this.isBlocking) {
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(this.x + 10, this.y + 70, 80, 80);
+        }
+        if (this.isPunching) {
+            ctx.fillStyle = 'red';
+            ctx.fillRect(this.x + 80, this.y + 50, 50, 20);
+        }
+    },
+    greet: function() {
+        ctx.font = '24px Arial';
+        ctx.fillStyle = 'white';
+        ctx.fillText("¡Hola, amigo!", this.x + this.width + 20, this.y + 50);
+    }
+};
+
+// Definición del oponente
+const opponent = {
+    x: 550,
+    y: 350,
+    width: 100,
+    height: 150,
+    health: 100,
+    color: 'gray',
+    draw: function() {
+        ctx.drawImage(oponenteSprite, this.x, this.y, this.width, this.height);
+    }
 };
 
 // Función para dibujar todo en el canvas
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // --- Dibuja la imagen de fondo animada ---
     if (isBgLoaded) {
         ctx.drawImage(backgroundImage, bgX, 0, canvas.width, canvas.height);
         ctx.drawImage(backgroundImage, bgX + canvas.width, 0, canvas.width, canvas.height);
@@ -236,12 +314,10 @@ function draw() {
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
-    // --- FIN DEL CÓDIGO DEL FONDO ---
 
     player.draw();
     opponent.draw();
 
-    // Mostrar vida
     ctx.fillStyle = 'red';
     ctx.font = '24px Arial';
     ctx.fillText(`Tu Salud: ${player.health}`, 50, 50);
@@ -268,7 +344,6 @@ function punch() {
         if (opponent.health <= 0) {
             alert("¡Ganaste!");
         }
-        // El oponente responde
         setTimeout(opponentPunch, 1000);
     }
 }
@@ -276,7 +351,7 @@ function punch() {
 // Función para que el oponente golpee
 function opponentPunch() {
     if (player.health > 0) {
-        if (Math.random() > 0.5) { // 50% de probabilidad de golpear
+        if (Math.random() > 0.5) {
             if (!player.isBlocking) {
                 player.health -= 15;
             } else {
@@ -296,7 +371,7 @@ function block() {
     player.isBlocking = true;
     setTimeout(() => {
         player.isBlocking = false;
-    }, 1500); // Bloquea por 1.5 segundos
+    }, 1500);
 }
 
 // Escuchar los clics de los botones
@@ -324,7 +399,6 @@ document.addEventListener('keyup', (event) => {
 
 // Función de actualización
 function update() {
-    // Mover al jugador si las teclas de flecha están presionadas
     if (keys.left && player.x > ringLeft) {
         player.x -= playerSpeed;
     }
@@ -332,7 +406,6 @@ function update() {
         player.x += playerSpeed;
     }
     
-    // Asegurarse de que el oponente también esté dentro del ring
     if (opponent.x < ringLeft) {
         opponent.x = ringLeft;
     }
@@ -340,7 +413,6 @@ function update() {
         opponent.x = ringRight - opponent.width;
     }
     
-    // Mueve el fondo del juego
     bgX -= 1;
     if (bgX < -canvas.width) {
         bgX = 0;
@@ -356,3 +428,4 @@ function gameLoop() {
 
 // Iniciar el juego
 gameLoop();
+
