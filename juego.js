@@ -6,12 +6,12 @@ const greetButton = document.getElementById('greetButton');
 
 // Velocidad del jugador
 const playerSpeed = 5;
-// --- AÑADIDO: Carga de la imagen de fondo ---
-const backgroundImage = new Image(); // 1. Crea un nuevo objeto Image
-backgroundImage.src = 'fondo_juego.png'; // 2. Asigna la ruta a tu archivo de imagen
-let isBgLoaded = false; // 3. Bandera para saber si la imagen ya cargó
+// --- CÓDIGO AÑADIDO: Carga de la imagen de fondo ---
+const backgroundImage = new Image();
+backgroundImage.src = 'fondo_juego.png';
+let isBgLoaded = false;
+let bgX = 0; // NUEVO: Posición horizontal del fondo animado
 
-// 4. Esta función se ejecuta cuando la imagen ha terminado de cargar
 backgroundImage.onload = () => {
     isBgLoaded = true;
 };
@@ -30,7 +30,7 @@ const player = {
     x: 150,
     y: 350,
     width: 100,
-    height: 178, // 1.78 cm de alto (representación simplificada)
+    height: 178,
     isBlocking: false,
     health: 100,
     color: 'pink',
@@ -38,11 +38,11 @@ const player = {
     // Carácter personalizado: Mujer de unos 28 años, con cabello rosado marrón amarillento
     draw: function() {
         // Cuerpo y cabeza
-        ctx.fillStyle = 'peru'; // Tono de piel promedio
+        ctx.fillStyle = 'peru';
         ctx.fillRect(this.x, this.y, this.width, this.height);
 
         // Cabello: Rosado marrón amarillento
-        ctx.fillStyle = '#C2B280'; // Color que se asemeja a la descripción
+        ctx.fillStyle = '#C2B280';
         ctx.fillRect(this.x + 20, this.y - 40, 60, 40);
 
         // Ojos
@@ -55,16 +55,16 @@ const player = {
         ctx.fill();
         
         // --- CÓDIGO PARA AÑADIR LA ANIMACIÓN DE BLOQUEO ---
-if (this.isBlocking) {
-    // Dibuja un escudo o una postura de bloqueo
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(this.x + 10, this.y + 70, 80, 80);
-}
-// --- FIN DEL CÓDIGO ---
+        if (this.isBlocking) {
+            // Dibuja un escudo o una postura de bloqueo
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(this.x + 10, this.y + 70, 80, 80);
+        }
+        // --- FIN DEL CÓDIGO ---
 
 
         // Brazos para golpear
-        if (this.isPunching) { //
+        if (this.isPunching) {
             ctx.fillStyle = 'red';
             ctx.fillRect(this.x + 80, this.y + 50, 50, 20); // Puño
         }
@@ -98,25 +98,17 @@ const opponent = {
 // Función para dibujar todo en el canvas
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Función para dibujar todo en el canvas
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // --- CÓDIGO AÑADIDO: Dibuja la imagen de fondo ---
+    // --- CÓDIGO AÑADIDO: Dibuja la imagen de fondo animada ---
     if (isBgLoaded) {
-        ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(backgroundImage, bgX, 0, canvas.width, canvas.height);
+        ctx.drawImage(backgroundImage, bgX + canvas.width, 0, canvas.width, canvas.height);
     } else {
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
     // --- FIN DEL CÓDIGO AÑADIDO ---
 
-    player.draw();
-    opponent.draw();
-
-    // ... (el resto del código para mostrar la vida) ...
-}
-    
     player.draw();
     opponent.draw();
 
@@ -209,6 +201,12 @@ function update() {
     }
     if (keys.right && player.x < canvas.width - player.width) {
         player.x += playerSpeed;
+    }
+    
+    // Mueve el fondo del juego
+    bgX -= 1;
+    if (bgX < -canvas.width) {
+        bgX = 0;
     }
 }
 
