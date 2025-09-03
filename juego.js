@@ -32,6 +32,14 @@ backgroundImage.onload = () => {
 };
 // --- FIN DEL CÓDIGO AÑADIDO ---
 
+// Carga la imagen de la jugadora
+const jugadoraSprite = new Image();
+jugadoraSprite.src = 'jugador.png';
+
+// Carga la imagen de la oponente
+const oponenteSprite = new Image();
+oponenteSprite.src = 'oponente.png';
+
 
 // Objeto para rastrear las teclas presionadas
 const keys = {
