@@ -210,18 +210,12 @@ document.addEventListener('keyup', (event) => {
 
 // Función de actualización
 function update() {
+    // Lógica del movimiento del jugador
     if (keys.left && player.x > ringLeft) {
         player.x -= playerSpeed;
     }
     if (keys.right && player.x < ringRight - player.width) {
         player.x += playerSpeed;
-    }
-    
-    if (opponent.x < ringLeft) {
-        opponent.x = ringLeft;
-    }
-    if (opponent.x > ringRight - opponent.width) {
-        opponent.x = ringRight - opponent.width;
     }
     
     // Lógica de animación para el jugador
@@ -236,8 +230,8 @@ function update() {
         playerAnimationFrame = (playerAnimationFrame + 1) % 2;
         playerAnimationTimer = 0;
     }
-
-    // Lógica de animación para el oponente
+    
+    // El oponente aún no se mueve, así que se queda en idle
     opponentAnimationState = 'idle';
     opponentAnimationTimer++;
     if (opponentAnimationTimer >= animationSpeed) {
@@ -245,6 +239,13 @@ function update() {
         opponentAnimationTimer = 0;
     }
 
+    if (opponent.x < ringLeft) {
+        opponent.x = ringLeft;
+    }
+    if (opponent.x > ringRight - opponent.width) {
+        opponent.x = ringRight - opponent.width;
+    }
+    
     bgX -= 1;
     if (bgX < -canvas.width) {
         bgX = 0;
