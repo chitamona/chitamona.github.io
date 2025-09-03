@@ -24,6 +24,19 @@ jugadoraSprite.src = 'jugador.png';
 const oponenteSprite = new Image();
 oponenteSprite.src = 'oponente.png';
 
+// Carga de las imágenes de animación de la jugadora
+const jugadoraWalk1Sprite = new Image();
+jugadoraWalk1Sprite.src = 'jugadora_walk1.png'; // Primera fase de caminar
+const jugadoraWalk2Sprite = new Image();
+jugadoraWalk2Sprite.src = 'jugadora_walk2.png'; // Segunda fase de caminar
+
+// Carga de las imágenes de animación de la oponente
+const oponenteWalk1Sprite = new Image();
+oponenteWalk1Sprite.src = 'oponente_walk1.png';
+const oponenteWalk2Sprite = new Image();
+oponenteWalk2Sprite.src = 'oponente_walk2.png';
+
+
 
 // Límites del ring
 const ringLeft = 100;
