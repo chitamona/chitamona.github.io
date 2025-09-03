@@ -50,14 +50,8 @@ const player = {
     draw: function() {
         ctx.drawImage(jugadoraSprite, this.x, this.y, this.width, this.height);
         
-        if (this.isBlocking) {
-            ctx.fillStyle = 'blue';
-            ctx.fillRect(this.x + 10, this.y + 70, 80, 80);
-        }
-        if (this.isPunching) {
-            ctx.fillStyle = 'red';
-            ctx.fillRect(this.x + 80, this.y + 50, 50, 20);
-        }
+        // **Código de las animaciones de golpe y bloqueo (opcional, si tienes sprites)**
+        // Aquí podrías dibujar un sprite de golpe si tienes una imagen para ello.
     },
     greet: function() {
         ctx.font = '24px Arial';
@@ -205,3 +199,4 @@ function gameLoop() {
 // Iniciar el juego
 gameLoop();
 
+        
