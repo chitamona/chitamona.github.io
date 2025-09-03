@@ -210,35 +210,25 @@ document.addEventListener('keyup', (event) => {
 
 // Función de actualización
 function update() {
-    // Lógica del movimiento del jugador
+    // Lógica de movimiento y animación para el jugador
     if (keys.left && player.x > ringLeft) {
         player.x -= playerSpeed;
-    }
-    if (keys.right && player.x < ringRight - player.width) {
+        playerAnimationState = 'walking';
+    } else if (keys.right && player.x < ringRight - player.width) {
         player.x += playerSpeed;
-    }
-    
-    // Lógica de animación para el jugador
-    if (keys.left || keys.right) {
         playerAnimationState = 'walking';
     } else {
         playerAnimationState = 'idle';
     }
     
+    // Actualiza el temporizador de la animación del jugador
     playerAnimationTimer++;
     if (playerAnimationTimer >= animationSpeed) {
         playerAnimationFrame = (playerAnimationFrame + 1) % 2;
         playerAnimationTimer = 0;
     }
     
-    // El oponente aún no se mueve, así que se queda en idle
-    opponentAnimationState = 'idle';
-    opponentAnimationTimer++;
-    if (opponentAnimationTimer >= animationSpeed) {
-        opponentAnimationFrame = (opponentAnimationFrame + 1) % 2;
-        opponentAnimationTimer = 0;
-    }
-
+    // Lógica del movimiento y animación para el oponente (por ahora solo idle)
     if (opponent.x < ringLeft) {
         opponent.x = ringLeft;
     }
@@ -246,6 +236,13 @@ function update() {
         opponent.x = ringRight - opponent.width;
     }
     
+    opponentAnimationState = 'idle';
+    opponentAnimationTimer++;
+    if (opponentAnimationTimer >= animationSpeed) {
+        opponentAnimationFrame = (opponentAnimationFrame + 1) % 2;
+        opponentAnimationTimer = 0;
+    }
+
     bgX -= 1;
     if (bgX < -canvas.width) {
         bgX = 0;
@@ -261,4 +258,3 @@ function gameLoop() {
 
 // Iniciar el juego
 gameLoop();
-
