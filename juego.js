@@ -24,28 +24,16 @@ jugadoraSprite.src = 'jugador.png';
 const oponenteSprite = new Image();
 oponenteSprite.src = 'oponente.png';
 
-// Carga de las imágenes de animación de la jugadora
+// Imágenes de las animaciones de caminar
 const jugadoraWalk1Sprite = new Image();
-jugadoraWalk1Sprite.src = 'jugadora_walk1.png'; // Primera fase de caminar
+jugadoraWalk1Sprite.src = 'jugadora_walk1.png';
 const jugadoraWalk2Sprite = new Image();
-jugadoraWalk2Sprite.src = 'jugadora_walk2.png'; // Segunda fase de caminar
+jugadoraWalk2Sprite.src = 'jugadora_walk2.png';
 
-// Carga de las imágenes de animación de la oponente
 const oponenteWalk1Sprite = new Image();
 oponenteWalk1Sprite.src = 'oponente_walk1.png';
 const oponenteWalk2Sprite = new Image();
 oponenteWalk2Sprite.src = 'oponente_walk2.png';
-// Variables para el estado de animación del jugador
-let playerAnimationState = 'idle';
-let playerAnimationFrame = 0;
-let playerAnimationTimer = 0;
-const animationSpeed = 10;
-
-// Variables para el estado de animación del oponente
-let opponentAnimationState = 'idle';
-let opponentAnimationFrame = 0;
-let opponentAnimationTimer = 0;
-
 
 
 // Límites del ring
@@ -53,11 +41,20 @@ const ringLeft = 100;
 const ringRight = 700;
 
 
-// Objeto para rastrear las teclas presionadas
+// Variables de estado y animación
 const keys = {
     left: false,
     right: false
 };
+
+let playerAnimationState = 'idle';
+let playerAnimationFrame = 0;
+let playerAnimationTimer = 0;
+const animationSpeed = 10;
+
+let opponentAnimationState = 'idle';
+let opponentAnimationFrame = 0;
+let opponentAnimationTimer = 0;
 
 
 // Definición del personaje del jugador
@@ -71,10 +68,19 @@ const player = {
     color: 'pink',
     isPunching: false,
     draw: function() {
-        ctx.drawImage(jugadoraSprite, this.x, this.y, this.width, this.height);
+        let currentSprite;
         
-        // **Código de las animaciones de golpe y bloqueo (opcional, si tienes sprites)**
-        // Aquí podrías dibujar un sprite de golpe si tienes una imagen para ello.
+        if (playerAnimationState === 'walking') {
+            if (playerAnimationFrame === 0) {
+                currentSprite = jugadoraWalk1Sprite;
+            } else {
+                currentSprite = jugadoraWalk2Sprite;
+            }
+        } else {
+            currentSprite = jugadoraWalk1Sprite;
+        }
+        
+        ctx.drawImage(currentSprite, this.x, this.y, this.width, this.height);
     },
     greet: function() {
         ctx.font = '24px Arial';
@@ -92,7 +98,19 @@ const opponent = {
     health: 100,
     color: 'gray',
     draw: function() {
-        ctx.drawImage(oponenteSprite, this.x, this.y, this.width, this.height);
+        let currentSprite;
+        
+        if (opponentAnimationState === 'walking') {
+            if (opponentAnimationFrame === 0) {
+                currentSprite = oponenteWalk1Sprite;
+            } else {
+                currentSprite = oponenteWalk2Sprite;
+            }
+        } else {
+            currentSprite = oponenteWalk1Sprite;
+        }
+        
+        ctx.drawImage(currentSprite, this.x, this.y, this.width, this.height);
     }
 };
 
@@ -192,32 +210,6 @@ document.addEventListener('keyup', (event) => {
 
 // Función de actualización
 function update() {
-    // Dentro de la función update()
-
-    // Lógica de animación para el jugador
-    if (keys.left || keys.right) {
-        playerAnimationState = 'walking';
-    } else {
-        playerAnimationState = 'idle';
-    }
-    
-    // Actualiza el temporizador de la animación del jugador
-    playerAnimationTimer++;
-    if (playerAnimationTimer >= animationSpeed) {
-        playerAnimationFrame = (playerAnimationFrame + 1) % 2; // Alterna entre 0 y 1
-        playerAnimationTimer = 0;
-    }
-
-    // Lógica de animación para el oponente
-    opponentAnimationState = 'idle'; // Por ahora, el oponente solo está quieto
-    opponentAnimationTimer++;
-    if (opponentAnimationTimer >= animationSpeed) {
-        opponentAnimationFrame = (opponentAnimationFrame + 1) % 2;
-        opponentAnimationTimer = 0;
-    }
-
-    // ... (el resto del código de la función update, como el movimiento del fondo) ...
-
     if (keys.left && player.x > ringLeft) {
         player.x -= playerSpeed;
     }
@@ -232,6 +224,27 @@ function update() {
         opponent.x = ringRight - opponent.width;
     }
     
+    // Lógica de animación para el jugador
+    if (keys.left || keys.right) {
+        playerAnimationState = 'walking';
+    } else {
+        playerAnimationState = 'idle';
+    }
+    
+    playerAnimationTimer++;
+    if (playerAnimationTimer >= animationSpeed) {
+        playerAnimationFrame = (playerAnimationFrame + 1) % 2;
+        playerAnimationTimer = 0;
+    }
+
+    // Lógica de animación para el oponente
+    opponentAnimationState = 'idle';
+    opponentAnimationTimer++;
+    if (opponentAnimationTimer >= animationSpeed) {
+        opponentAnimationFrame = (opponentAnimationFrame + 1) % 2;
+        opponentAnimationTimer = 0;
+    }
+
     bgX -= 1;
     if (bgX < -canvas.width) {
         bgX = 0;
@@ -248,4 +261,3 @@ function gameLoop() {
 // Iniciar el juego
 gameLoop();
 
-        
