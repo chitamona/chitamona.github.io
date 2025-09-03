@@ -35,6 +35,16 @@ const oponenteWalk1Sprite = new Image();
 oponenteWalk1Sprite.src = 'oponente_walk1.png';
 const oponenteWalk2Sprite = new Image();
 oponenteWalk2Sprite.src = 'oponente_walk2.png';
+// Variables para el estado de animación del jugador
+let playerAnimationState = 'idle';
+let playerAnimationFrame = 0;
+let playerAnimationTimer = 0;
+const animationSpeed = 10;
+
+// Variables para el estado de animación del oponente
+let opponentAnimationState = 'idle';
+let opponentAnimationFrame = 0;
+let opponentAnimationTimer = 0;
 
 
 
